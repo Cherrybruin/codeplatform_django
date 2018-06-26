@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+    <title>{% block title %}Code Platform{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.bootcss.com/bootstrap/4.1.1/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" ></script>
+	<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<style>
+        body{
+            background: {% block bg-color %}#2b3137{% endblock %}
+        }
+		.main-container{
+			margin-top: 60px;
+			top: 60px;
+			height: 600px;
+        {% block only_index %}
+			background: url('https://github.com/images/modules/site/heroes/simple-codelines.svg');
+			background-size: cover;
+        {% endblock %}
+		}
+		.jumbotron{
+			font-size: 15px;
+			color: var(--gray-dark);
+		}
+	</style>
+</head>
+<body>
+	
+    <div class="main-container container-fluid  justify-content-center" >
+		
+					<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top row justify-content-md-center">
+					    <a class="navbar-brand" href="../">Code Platform</a>
+						
+						<div class="collapse navbar-collapse col-md-8 justify-content-end"  id="navbarSupportedContent">
+
+{#							<ul class="navbar-nav mr-3">#}
+{#								<li class="nav-item active">#}
+{#									<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>#}
+{#								</li>#}
+{#								<li class="nav-item">#}
+{#								  	<a class="nav-link" href="#">Link</a>#}
+{#								</li>#}
+{#								#}
+{#							</ul>#}
+{#							<form class="form-inline my-2 my-lg-0 mr-auto">#}
+{#								{% csrf_token %}#}
+{#								<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">#}
+{#								<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>#}
+{#							</form>#}
+                            {% block navline %}
+                                {% if login_username %}
+                                    <a href="../{{ login_username }}">
+                                         <span class="navbar-text mr-3">
+                                            {{ login_username }}
+                                        </span>
+                                    </a>
+                                    <ul class="navbar-nav" >
+                                        <a href="../logout">
+                                            <svg width="30" height="30" class="octicon octicon-sign-out" viewBox="0 0 16 16" version="1.1" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M11.992 8.994V6.996H7.995v-2h3.997V2.999l3.998 2.998-3.998 2.998zm-1.998 2.998H5.996V2.998L2 1h7.995v2.998h1V1c0-.55-.45-.999-1-.999H.999A1.001 1.001 0 0 0 0 1v11.372c0 .39.22.73.55.91L5.996 16v-3.008h3.998c.55 0 1-.45 1-1V7.996h-1v3.998z">
+
+                                            </path></svg>
+                                        </a>
+                                    </ul>
+                                {% else %}
+
+                                    <button class="btn btn-outline-light" data-toggle="modal" data-target="#login-model">sign in</button>
+
+                                {% endif %}
+							{% endblock %}
+
+						</div>
+						
+					</nav>	
+			{% block loginform %}
+                                <div class="modal fade" id="login-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Start a New Project</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                        <form id="login" action="login" method="post">
+                                      <div class="modal-body">
+                                            {% csrf_token %}
+                                            {{ form }}
+                                            <div class="form-group">
+                                                    <label for="username-dispaly grey" class="display-5">
+                                                        Username
+                                                    </label>
+                                                    <input class="form-control" id="login-username" name="username"  required="required"/>
+                                            </div>
+                                            <div class="form-group">
+                                                    <label for="username-dispaly grey" class="display-5">
+                                                        Password
+                                                    </label>
+                                                    <input class="form-control" id="login-password" name="password" required="required"/>
+                                            </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" value="Now Start!"/>
+                                      </div>
+                                        </form>
+                                    </div>
+                                  </div>
+                                </div>
+                        {% endblock %}
+		
+		<div class="row justify-content-md-center" style="top:60px;padding-top:60px;	">
+			{% block content %}
+			<div class="col-md-5">
+				<div class="mt-2 mr-4">
+					<h1 class="text-white display-3 mb-3">Built for developers</h1>
+					<p class="alt-lead mb-4 display-5" style="color:rgba(255,255,255,0.6)">
+							GitHub is a development platform inspired by the way you work. From 
+							<a href="/open-source" class="text-white jumbotron-link">open source</a> 
+							to <a href="/business" class="text-white jumbotron-link">business</a>
+							, you can host and review code, manage projects, and build software alongside millions of other&nbsp;developers.
+						  
+					</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="jumbotron">
+					<form role="form" method="POST" autocomplete="off" action="/register">
+						{% csrf_token %}
+						{{ form }}
+						<div class="form-group">
+
+							<label for="username-dispaly grey" class="display-5">
+								Usrename
+							</label>
+							<input class="form-control" id="input-username" name="username" placeholder="Pick your username" />
+					    </div>
+					<div class="form-group">
+
+						<label for="Email-display" class="display-5">
+							Email
+						</label>
+						<input type="email" class="form-control" id="input-email" name="email" placeholder="you@example.com" />
+					</div>
+					<div class="form-group">
+
+						<label for="password-display" class="display-5">
+							Password
+						</label>
+						<input class="form-control" id="input-password" name="password" placeholder="Create a password"/>
+					</div>
+					<button id="registerbutton" type="submit" class="btn btn-success" style="width:100%">
+						Sign up for Code Platform
+					</button>
+					</form>
+				</div>
+			</div>
+			{% endblock %}
+		</div>
+		
+		</div>
+
+</body>
+</html>

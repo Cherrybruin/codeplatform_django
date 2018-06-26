@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block bg-color %}
+    var(--white)
+{% endblock %}
+{% block only_index %}
+{% endblock %}
+{% block content %}
+    <div class="col-3 border-right mb-3 pb-3">
+        <div id="user-profile" class="media">
+            <div class="rounded-circle justify-content-center d-flex mr-3" style="background-color: var(--blue);width: 75px;height: 75px;">
+                <h3 class="align-self-center">{{ username|first|capfirst }}</h3>
+            </div>
+            <h5 class="mt-2">
+                {{ username }}
+            </h5>
+        </div>
+        <div class="mt-3">
+            <div class="my-2">
+                <p class="lead">
+                    他很懒，什么都没留下
+                </p>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" id="mytab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Projects</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Group</a>
+              </li>
+        </ul>
+        <div class="tab-content" id="mytabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...POProject</div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">..FGRoupt.</div>
+        </div>
+    </div>
+    <div class="col-6 pt-3 pl-3 pr-3 pb-3">
+        <nav class="navbar navbar-expand-lg navbar-light border-bottom mr-auto nav-tabs"  id="myTab" role="tablist" style="width:100%;height: fit-content">
+            <h2 class="navbar-brand mr-auto">Projects</h2>
+            <button class="btn btn-sm btn-outline-secondary" type="button"  data-toggle="modal" data-target="#exampleModalLong">Start new project</button>
+        </nav>
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Start a New Project</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+                <form id="startform" action="start" method="post">
+              <div class="modal-body">
+
+                    {% csrf_token %}
+                    {{ form }}
+                    <div class="form-group">
+							<label for="username-dispaly grey" class="display-5">
+								Project Name
+							</label>
+							<input class="form-control" id="input-pojectname" name="projectname" placeholder="Pick your project name" required="required"/>
+                    </div>
+                    <div class="form-group">
+
+							<label for="username-dispaly grey" class="display-5">
+								Description
+							</label>
+							<textarea class="form-control" id="input-description" name="description" placeholder="input something to describe your project" required="required"></textarea>
+
+                            <div class="btn-group btn-group-toggle mt-2" data-toggle="buttons">
+
+                              <label class="btn btn-secondary active">
+                                <input type="radio" name="public-or-private" id="option1" autocomplete="off" checked value="public"> 开源项目
+                              </label>
+                              <label class="btn btn-secondary">
+                                <input type="radio" name="public-or-private" id="option2" autocomplete="off" value="private"> 私有项目
+                              </label>
+                              </label>
+                            </div>
+                    </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" value="Now Start!"/>
+              </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+            {% for Aproject in projects %}
+                <li class="list-group-item">
+                    <h4>
+                        <a href="#" class="breadcrumb-item "><span>{{ username }}</span></a>
+                        <a href="{{ Aproject }}" class="breadcrumb-item "><span>{{ Aproject }}</span></a>
+                    </h4>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endblock %}
+
